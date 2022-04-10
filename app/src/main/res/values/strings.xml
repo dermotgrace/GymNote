@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">GymNote</string>
+    <string name="title_notes">Notes</string>
+    <string name="title_addNote">Add Note</string>
+    <string name="title_logout">Logout</string>
+</resources>
