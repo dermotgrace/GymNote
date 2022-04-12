@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="ie.wit.gymnote.ui.home.NotesFragment"
+        android:name="ie.wit.gymnote.ui.notes.NotesFragment"
         android:label="@string/title_notes"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_notes" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="ie.wit.gymnote.ui.notes.AddNoteFragment"
+        android:name="ie.wit.gymnote.ui.addNote.AddNoteFragment"
         android:label="@string/title_addNote"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_addnote" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="ie.wit.gymnote.ui.notifications.LogoutFragment"
+        android:name="ie.wit.gymnote.ui.logout.LogoutFragment"
         android:label="@string/title_logout"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_logout" />
 </navigation>
