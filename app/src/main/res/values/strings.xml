@@ -4,7 +4,9 @@
     <string name="title_addNote">Add Note</string>
     <string name="title_logout">Logout</string>
     <string name="button_addNote">Add Note</string>
-    <string name="hint_noteTitle">Please enter your note title here</string>
+    <string name="hint_noteTitle">Note title here</string>
+    <string name="hint_noteDate">Note date here</string>
+    <string name="addNoteDate">Add Note Date</string>
     <string name="hint_noteText">Please enter your note details here</string>
     <string name="pick_date">Please pick the note date</string>
 </resources>

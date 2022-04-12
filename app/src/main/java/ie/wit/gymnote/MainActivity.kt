@@ -14,6 +14,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import ie.wit.gymnote.databinding.ActivityMainBinding
 import ie.wit.gymnote.models.LoadingViewModel
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-
+        Timber.plant(Timber.DebugTree())
 
     }
 
