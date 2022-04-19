@@ -1,22 +1,19 @@
 package ie.wit.gymnote.ui.addNote
 
 import android.app.DatePickerDialog
-import android.app.PendingIntent.getActivity
 import android.os.Bundle
-import android.util.Log.i
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.DatePicker
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
-import ie.wit.gymnote.MainActivity
 import ie.wit.gymnote.R
 import ie.wit.gymnote.databinding.FragmentAddnoteBinding
 import ie.wit.gymnote.models.NoteModel
+import ie.wit.gymnote.ui.notes.NotesFragment
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
@@ -62,6 +59,7 @@ class AddNoteFragment : Fragment() {
 //            DatePickerDialog(context, datePicker, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
 //                    calendar.get(Calendar.DAY_OF_MONTH)).show()
 //        }
+
         return root
     }
 
@@ -98,6 +96,14 @@ class AddNoteFragment : Fragment() {
 
             if (note.noteTitle.isNotEmpty() && note.noteDate.isNotEmpty() && note.noteDetails.isNotEmpty()) {
                 Timber.i("add Button Pressed: ${note}")
+                val bundle = Bundle()
+                bundle.putString("noteTitle", note.noteTitle)
+                bundle.putString("noteDate", note.noteDate)
+                bundle.putString("noteDetails", note.noteDetails)
+
+                val fragment = NotesFragment()
+                fragment.arguments = bundle
+
             }
             else {
                 Snackbar.make(it,"Please ensure all fields are completed", Snackbar.LENGTH_LONG)
