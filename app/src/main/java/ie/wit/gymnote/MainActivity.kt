@@ -15,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import ie.wit.gymnote.databinding.ActivityMainBinding
 import ie.wit.gymnote.fragmentCommunication.FragmentCommunicator
 import ie.wit.gymnote.models.LoadingViewModel
+import ie.wit.gymnote.models.NoteModel
 import ie.wit.gymnote.ui.addNote.AddNoteFragment
 import ie.wit.gymnote.ui.notes.NotesFragment
 import timber.log.Timber
@@ -74,6 +75,7 @@ class MainActivity : AppCompatActivity(), FragmentCommunicator {
         transaction.replace(R.id.container, notesFragment).commit()
 
     }
+
 
 
 }

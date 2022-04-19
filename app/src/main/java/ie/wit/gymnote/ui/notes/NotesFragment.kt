@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import ie.wit.gymnote.adapters.NoteAdapter
 import ie.wit.gymnote.databinding.FragmentNotesBinding
 import ie.wit.gymnote.models.NoteModel
 import timber.log.Timber
@@ -33,18 +35,24 @@ class NotesFragment : Fragment() {
         i("inflated fragmentNotesBinding")
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
+/*        val textView: TextView = binding.textHome
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
-        }
-
-        val noteTitle =  arguments?.getString("noteTitle")
-        val noteDate =  arguments?.getString("noteDate")
-        val noteDetails =  arguments?.getString("noteDetails")
+        }*/
+        val note = NoteModel()
+        note.noteTitle = arguments?.getString("noteTitle").toString()
+        note.noteDate = arguments?.getString("noteDate").toString()
+        note.noteDetail = arguments?.getString("noteDetail").toString()
         i("Notes received")
-        i("noteTitle received: ${noteTitle}")
-        i("noteDate received: ${noteDate}")
-        i("noteDetails received: ${noteDetails}")
+        i("noteTitle received: ${note.noteTitle}")
+        i("noteDate received: ${note.noteDate}")
+        i("noteDetails received: ${note.noteDetail}")
+
+        val layoutManager = LinearLayoutManager(context)
+        _binding!!.recyclerView.layoutManager = layoutManager
+        _binding!!.recyclerView.adapter = NoteAdapter(notes)
+
+        notes.add(note)
         return root
     }
 

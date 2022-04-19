@@ -94,11 +94,11 @@ class AddNoteFragment : Fragment() {
         btnAdd.setOnClickListener() {
             note.noteTitle = _binding.noteTitle.text.toString()
             note.noteDate = _binding.noteDate.text.toString()
-            note.noteDetails = _binding.noteDetails.text.toString()
+            note.noteDetail = _binding.noteDetails.text.toString()
 
-            if (note.noteTitle.isNotEmpty() && note.noteDate.isNotEmpty() && note.noteDetails.isNotEmpty()) {
+            if (note.noteTitle.isNotEmpty() && note.noteDate.isNotEmpty() && note.noteDetail.isNotEmpty()) {
                 Timber.i("add Button Pressed: ${note}")
-                communicator.passData(note.noteTitle, note.noteDate, note.noteDetails)
+                communicator.passData(note.noteTitle, note.noteDate, note.noteDetail)
             }
             else {
                 Snackbar.make(it,"Please ensure all fields are completed", Snackbar.LENGTH_LONG)
