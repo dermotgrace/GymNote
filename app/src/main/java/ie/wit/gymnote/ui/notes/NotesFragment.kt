@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ie.wit.gymnote.databinding.FragmentNotesBinding
 import ie.wit.gymnote.models.NoteModel
+import timber.log.Timber
+import timber.log.Timber.i
 
 class NotesFragment : Fragment() {
 
@@ -26,14 +28,23 @@ class NotesFragment : Fragment() {
     ): View {
         val homeViewModel =
             ViewModelProvider(this).get(NotesViewModel::class.java)
-
+        i("homeviewmodel")
         _binding = FragmentNotesBinding.inflate(inflater, container, false)
+        i("inflated fragmentNotesBinding")
         val root: View = binding.root
 
         val textView: TextView = binding.textHome
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+
+        val noteTitle =  arguments?.getString("noteTitle")
+        val noteDate =  arguments?.getString("noteDate")
+        val noteDetails =  arguments?.getString("noteDetails")
+        i("Notes received")
+        i("noteTitle received: ${noteTitle}")
+        i("noteDate received: ${noteDate}")
+        i("noteDetails received: ${noteDetails}")
         return root
     }
 

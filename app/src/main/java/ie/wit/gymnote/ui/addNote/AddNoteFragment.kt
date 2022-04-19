@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import ie.wit.gymnote.R
 import ie.wit.gymnote.databinding.FragmentAddnoteBinding
+import ie.wit.gymnote.fragmentCommunication.FragmentCommunicator
 import ie.wit.gymnote.models.NoteModel
 import ie.wit.gymnote.ui.notes.NotesFragment
 import timber.log.Timber
@@ -19,7 +20,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class AddNoteFragment : Fragment() {
-
+    private lateinit var communicator : FragmentCommunicator
     private lateinit var _binding: FragmentAddnoteBinding
     private lateinit var noteDatePicker: TextView
     private lateinit var btnDatePicker: Button
@@ -68,8 +69,9 @@ class AddNoteFragment : Fragment() {
         noteDatePicker = view.findViewById(R.id.noteDate)
         btnDatePicker = view.findViewById(R.id.btnDatePicker)
         btnAdd = view.findViewById(R.id.btnAdd)
+        communicator = activity as FragmentCommunicator
 
-                val calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance()
         val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
             calendar.set(Calendar.YEAR, year)
             calendar.set(Calendar.MONTH, month)
@@ -96,14 +98,7 @@ class AddNoteFragment : Fragment() {
 
             if (note.noteTitle.isNotEmpty() && note.noteDate.isNotEmpty() && note.noteDetails.isNotEmpty()) {
                 Timber.i("add Button Pressed: ${note}")
-                val bundle = Bundle()
-                bundle.putString("noteTitle", note.noteTitle)
-                bundle.putString("noteDate", note.noteDate)
-                bundle.putString("noteDetails", note.noteDetails)
-
-                val fragment = NotesFragment()
-                fragment.arguments = bundle
-
+                communicator.passData(note.noteTitle, note.noteDate, note.noteDetails)
             }
             else {
                 Snackbar.make(it,"Please ensure all fields are completed", Snackbar.LENGTH_LONG)
