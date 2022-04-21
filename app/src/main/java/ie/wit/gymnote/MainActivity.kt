@@ -1,6 +1,7 @@
 package ie.wit.gymnote
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity(), FragmentCommunicator {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+                R.id.navigation_notes, R.id.navigation_addnote, R.id.navigation_logout
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -60,12 +61,13 @@ class MainActivity : AppCompatActivity(), FragmentCommunicator {
         // supportFragmentManager.beginTransaction().replace(R.id.container, notesFragment).commit()
     }
 
+
     override fun passData(noteTitle: String, noteDate: String, noteDetails: String) {
         // implementation of passData() in FragmentCommunicator class
         val bundle = Bundle()
         bundle.putString("noteTitle", noteTitle);
         bundle.putString("noteDate", noteDate);
-        bundle.putString("noteDetails", noteDetails);
+        bundle.putString("noteDetail", noteDetails);
 
         val transaction = this.supportFragmentManager.beginTransaction()
 

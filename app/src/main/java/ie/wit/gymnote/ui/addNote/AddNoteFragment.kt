@@ -1,6 +1,7 @@
 package ie.wit.gymnote.ui.addNote
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import ie.wit.gymnote.R
 import ie.wit.gymnote.databinding.FragmentAddnoteBinding
@@ -41,25 +43,7 @@ class AddNoteFragment : Fragment() {
         _binding = FragmentAddnoteBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-//        val textView: TextView = binding.textDashboard
-//        dashboardViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
-//        noteDatePicker = findViewById(R.id.noteDate)
-//        btnDatePicker = findViewById(R.id.btnDatePicker)
-//
-//        val calendar = Calendar.getInstance()
-//        val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-//            calendar.set(Calendar.YEAR, year)
-//            calendar.set(Calendar.MONTH, month)
-//            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-//            updateLabel(calendar)
-//        }
-//
-//        btnDatePicker.setOnClickListener {
-//            DatePickerDialog(context, datePicker, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-//                    calendar.get(Calendar.DAY_OF_MONTH)).show()
-//        }
+
 
         return root
     }
@@ -99,6 +83,9 @@ class AddNoteFragment : Fragment() {
             if (note.noteTitle.isNotEmpty() && note.noteDate.isNotEmpty() && note.noteDetail.isNotEmpty()) {
                 Timber.i("add Button Pressed: ${note}")
                 communicator.passData(note.noteTitle, note.noteDate, note.noteDetail)
+                // Navigate back to notes list
+                view.findNavController().navigate(R.id.navigation_notes)
+
             }
             else {
                 Snackbar.make(it,"Please ensure all fields are completed", Snackbar.LENGTH_LONG)
@@ -110,6 +97,7 @@ class AddNoteFragment : Fragment() {
         super.onDestroyView()
         //_binding = null
     }
+
 
     private fun updateLabel(calendar: Calendar) {
         val format = "dd-MM-yyyy";

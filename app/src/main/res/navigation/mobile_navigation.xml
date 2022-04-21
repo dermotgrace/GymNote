@@ -3,22 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_notes">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_notes"
         android:name="ie.wit.gymnote.ui.notes.NotesFragment"
         android:label="@string/title_notes"
         tools:layout="@layout/fragment_notes" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_addnote"
         android:name="ie.wit.gymnote.ui.addNote.AddNoteFragment"
         android:label="@string/title_addNote"
         tools:layout="@layout/fragment_addnote" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_logout"
         android:name="ie.wit.gymnote.ui.logout.LogoutFragment"
         android:label="@string/title_logout"
         tools:layout="@layout/fragment_logout" />
