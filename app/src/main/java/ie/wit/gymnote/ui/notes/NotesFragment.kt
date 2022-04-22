@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import ie.wit.gymnote.adapters.NoteAdapter
 import ie.wit.gymnote.databinding.FragmentNotesBinding
 import ie.wit.gymnote.models.NoteModel
+import ie.wit.gymnote.ui.addNote.AddNoteFragment
 import timber.log.Timber
 import timber.log.Timber.i
 
@@ -22,6 +23,10 @@ class NotesFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,7 +60,13 @@ class NotesFragment : Fragment() {
         notes.add(note)
         return root
     }
-
+    companion object {
+        @JvmStatic
+        fun newInstance() =
+            NotesFragment().apply {
+                arguments = Bundle().apply { }
+            }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

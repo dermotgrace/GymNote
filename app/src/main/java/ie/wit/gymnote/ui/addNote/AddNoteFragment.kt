@@ -23,7 +23,7 @@ import java.util.*
 
 class AddNoteFragment : Fragment() {
     private lateinit var communicator : FragmentCommunicator
-    private lateinit var _binding: FragmentAddnoteBinding
+    private var _binding: FragmentAddnoteBinding? = null
     private lateinit var noteDatePicker: TextView
     private lateinit var btnDatePicker: Button
     private lateinit var btnAdd: Button
@@ -31,6 +31,10 @@ class AddNoteFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     var note = NoteModel()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +51,15 @@ class AddNoteFragment : Fragment() {
 
         return root
     }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() =
+            AddNoteFragment().apply {
+                arguments = Bundle().apply { }
+            }
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -76,9 +89,9 @@ class AddNoteFragment : Fragment() {
         }
 
         btnAdd.setOnClickListener() {
-            note.noteTitle = _binding.noteTitle.text.toString()
-            note.noteDate = _binding.noteDate.text.toString()
-            note.noteDetail = _binding.noteDetails.text.toString()
+            note.noteTitle = _binding?.noteTitle?.text.toString()
+            note.noteDate = _binding?.noteDate?.text.toString()
+            note.noteDetail = _binding?.noteDetails?.text.toString()
 
             if (note.noteTitle.isNotEmpty() && note.noteDate.isNotEmpty() && note.noteDetail.isNotEmpty()) {
                 Timber.i("add Button Pressed: ${note}")
@@ -95,9 +108,12 @@ class AddNoteFragment : Fragment() {
     }
     override fun onDestroyView() {
         super.onDestroyView()
-        //_binding = null
+        _binding = null
     }
 
+    override fun onResume() {
+        super.onResume()
+    }
 
     private fun updateLabel(calendar: Calendar) {
         val format = "dd-MM-yyyy";

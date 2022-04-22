@@ -15,7 +15,11 @@
         android:id="@+id/navigation_addnote"
         android:name="ie.wit.gymnote.ui.addNote.AddNoteFragment"
         android:label="@string/title_addNote"
-        tools:layout="@layout/fragment_addnote" />
+        tools:layout="@layout/fragment_addnote" >
+        <action
+            android:id="@+id/action_navigation_addnote_to_navigation_notes"
+            app:destination="@id/navigation_notes" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_logout"
