@@ -111,9 +111,6 @@ class AddNoteFragment : Fragment() {
         _binding = null
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
 
     private fun updateLabel(calendar: Calendar) {
         val format = "dd-MM-yyyy";

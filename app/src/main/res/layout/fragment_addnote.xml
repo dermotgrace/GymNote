@@ -104,6 +104,7 @@
                     android:text="@string/button_addNote"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
+
             </LinearLayout>
         </ScrollView>
 
