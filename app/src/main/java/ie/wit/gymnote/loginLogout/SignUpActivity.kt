@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import ie.wit.gymnote.R
 import ie.wit.gymnote.databinding.ActivitySignUpBinding
 
 class SignUpActivity : AppCompatActivity() {
@@ -21,7 +20,7 @@ class SignUpActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         _binding.alreadyRegistered.setOnClickListener {
-            val intent = Intent(this, SignInActivity::class.java)
+            val intent = Intent(this, FirebaseAuthManager::class.java)
             startActivity(intent)
         }
 
@@ -35,7 +34,7 @@ class SignUpActivity : AppCompatActivity() {
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener{
                         if(it.isSuccessful) {
                             Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this, SignInActivity::class.java)
+                            val intent = Intent(this, FirebaseAuthManager::class.java)
                             startActivity(intent)
                         } else {
                             Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()

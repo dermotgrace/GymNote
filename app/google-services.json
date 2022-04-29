@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "649835317413",
+    "firebase_url": "https://gymnote-dg-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "gymnote-dg",
     "storage_bucket": "gymnote-dg.appspot.com"
   },
