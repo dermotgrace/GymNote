@@ -23,6 +23,8 @@ import ie.wit.gymnote.ui.notes.NotesFragment
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import androidx.lifecycle.Observer
+import org.w3c.dom.Text
+import timber.log.Timber.i
 import java.util.*
 
 class AddNoteFragment : Fragment() {
@@ -33,6 +35,7 @@ class AddNoteFragment : Fragment() {
     private lateinit var btnAdd: Button
     private lateinit var noteViewModel: AddNoteViewModel
     private val loggedInViewModel : LoggedInViewModel by activityViewModels()
+    private var editing = "false"
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -58,6 +61,12 @@ class AddNoteFragment : Fragment() {
         noteViewModel.observableStatus.observe(viewLifecycleOwner, Observer {
                 status -> status?.let { render(status) }
         })
+        editing = arguments?.getString("editing").toString()
+        val addEditButton : TextView? = view?.findViewById(R.id.btnAdd)
+        i("gn editing ${editing}")
+        if(editing == "true") {
+            addEditButton?.text = "Update Note"
+        }
 
         return root
     }

@@ -3,7 +3,9 @@ package ie.wit.gymnote
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.activity.viewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -62,12 +64,12 @@ class MainActivity : AppCompatActivity(), FragmentCommunicator {
     }
 
 
-    override fun passData(noteTitle: String, noteDate: String, noteDetails: String) {
+    override fun passDataToNotes(note: NoteModel) {
         // implementation of passData() in FragmentCommunicator class
         val bundle = Bundle()
-        bundle.putString("noteTitle", noteTitle);
-        bundle.putString("noteDate", noteDate);
-        bundle.putString("noteDetail", noteDetails);
+        bundle.putString("noteTitle", note?.noteTitle);
+        bundle.putString("noteDate", note?.noteDate);
+        bundle.putString("noteDetail", note?.noteDetail);
 
         val transaction = this.supportFragmentManager.beginTransaction()
 
@@ -78,11 +80,32 @@ class MainActivity : AppCompatActivity(), FragmentCommunicator {
 
     }
 
+    override fun passDataToEditNote(note: NoteModel) {
+        // implementation of passData() in FragmentCommunicator class
+        val bundle = Bundle()
+        bundle.putString("noteTitle", note?.noteTitle);
+        bundle.putString("noteDate", note?.noteDate);
+        bundle.putString("noteDetail", note?.noteDetail);
+        bundle.putString("editing", "true");
+
+        val transaction = this.supportFragmentManager.beginTransaction()
+
+        val noteFragment = AddNoteFragment()
+        noteFragment.arguments = bundle
+        // Passes data to notesFragment
+        transaction.replace(R.id.container, noteFragment).commit()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
 
+    fun completeNoteCheckClick(e: View) {
+        i("gn completeNoteCheckClick ${e.toString()}")
+    }
 
-
+    fun deleteNoteClick(e: View) {
+        i("gn deleteNoteClick ${e.toString()}")
+    }
 }
