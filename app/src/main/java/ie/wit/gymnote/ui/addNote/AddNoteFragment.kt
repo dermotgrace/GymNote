@@ -8,17 +8,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import ie.wit.gymnote.R
 import ie.wit.gymnote.databinding.FragmentAddnoteBinding
 import ie.wit.gymnote.fragmentCommunication.FragmentCommunicator
+import ie.wit.gymnote.loginLogout.LoggedInViewModel
 import ie.wit.gymnote.models.NoteModel
 import ie.wit.gymnote.ui.notes.NotesFragment
 import timber.log.Timber
 import java.text.SimpleDateFormat
+import androidx.lifecycle.Observer
 import java.util.*
 
 class AddNoteFragment : Fragment() {
@@ -27,6 +31,9 @@ class AddNoteFragment : Fragment() {
     private lateinit var noteDatePicker: TextView
     private lateinit var btnDatePicker: Button
     private lateinit var btnAdd: Button
+    private lateinit var noteViewModel: AddNoteViewModel
+    private val loggedInViewModel : LoggedInViewModel by activityViewModels()
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -47,7 +54,10 @@ class AddNoteFragment : Fragment() {
         _binding = FragmentAddnoteBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-
+        noteViewModel = ViewModelProvider(this).get(AddNoteViewModel::class.java)
+        noteViewModel.observableStatus.observe(viewLifecycleOwner, Observer {
+                status -> status?.let { render(status) }
+        })
 
         return root
     }
@@ -60,6 +70,17 @@ class AddNoteFragment : Fragment() {
             }
     }
 
+    private fun render(status: Boolean) {
+        when (status) {
+            true -> {
+                view?.let {
+                    //Uncomment this if you want to immediately return to Report
+                    //findNavController().popBackStack()
+                }
+            }
+            false -> Toast.makeText(context,"Error",Toast.LENGTH_LONG).show()
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -89,13 +110,20 @@ class AddNoteFragment : Fragment() {
         }
 
         btnAdd.setOnClickListener() {
+            Timber.i("add Button Pressed1")
             note.noteTitle = _binding?.noteTitle?.text.toString()
             note.noteDate = _binding?.noteDate?.text.toString()
             note.noteDetail = _binding?.noteDetails?.text.toString()
 
-            if (note.noteTitle.isNotEmpty() && note.noteDate.isNotEmpty() && note.noteDetail.isNotEmpty()) {
-                Timber.i("add Button Pressed: ${note}")
-                communicator.passData(note.noteTitle, note.noteDate, note.noteDetail)
+            if (note.noteTitle!!.isNotEmpty() && note.noteDate!!.isNotEmpty() && note.noteDetail!!.isNotEmpty()) {
+                Timber.i("add Button Pressed2: ${note}")
+                // communicator.passData(note.noteTitle!!, note.noteDate!!, note.noteDetail!!)
+                noteViewModel.addNote(
+                    loggedInViewModel.liveFirebaseUser,
+                    NoteModel(noteTitle = note.noteTitle,
+                        noteDate = note.noteDate,
+                        noteDetail = note.noteDetail))
+
                 // Navigate back to notes list
                 view.findNavController().navigate(R.id.navigation_notes)
 
