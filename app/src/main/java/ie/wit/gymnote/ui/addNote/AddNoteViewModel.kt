@@ -23,7 +23,7 @@ class AddNoteViewModel : ViewModel() {
     ) {
         status.value = try {
             //DonationManager.create(donation)
-            Timber.i("AddNoteViewModel::addNote")
+            Timber.i("gn AddNoteViewModel::addNote")
             FirebaseDBManager.create(firebaseUser,note)
             true
         } catch (e: IllegalArgumentException) {

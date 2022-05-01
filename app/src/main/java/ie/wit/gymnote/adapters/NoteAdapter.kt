@@ -2,6 +2,7 @@ package ie.wit.gymnote.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import ie.wit.gymnote.databinding.CardNoteBinding
 import ie.wit.gymnote.models.NoteModel

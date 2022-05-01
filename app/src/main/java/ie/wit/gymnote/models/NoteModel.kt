@@ -11,7 +11,8 @@ data class NoteModel(
     var uid: String? = "",
     var noteTitle: String? = "",
     var noteDate: String? = "",
-    var noteDetail: String? = "")
+    var noteDetail: String? = "",
+    var noteComplete: Boolean? = false)
     : Parcelable
 {
     @Exclude
@@ -20,7 +21,8 @@ data class NoteModel(
             "uid" to uid,
             "noteTitle" to noteTitle,
             "noteDate" to noteDate,
-            "noteDetail" to noteDetail
+            "noteDetail" to noteDetail,
+            "noteComplete" to noteComplete
         )
     }
 }
