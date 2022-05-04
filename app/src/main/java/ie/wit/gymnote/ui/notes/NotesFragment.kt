@@ -1,12 +1,10 @@
 package ie.wit.gymnote.ui.notes
 
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.Switch
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,17 +13,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import ie.wit.gymnote.R
 import ie.wit.gymnote.adapters.NoteAdapter
+import ie.wit.gymnote.adapters.NoteListener
 import ie.wit.gymnote.databinding.FragmentNotesBinding
 import ie.wit.gymnote.firebaseDB.FirebaseDBManager
+import ie.wit.gymnote.fragmentCommunication.FragmentCommunicator
 import ie.wit.gymnote.models.NoteModel
-import ie.wit.gymnote.ui.addNote.AddNoteFragment
 import timber.log.Timber
 import timber.log.Timber.i
 
 
-class NotesFragment : Fragment() {
-
+class NotesFragment : Fragment(), NoteListener {
+    private lateinit var communicator : FragmentCommunicator
     private var _binding: FragmentNotesBinding? = null
     private val binding get() = _binding!!
     private val notesList =
@@ -35,9 +35,6 @@ class NotesFragment : Fragment() {
         get() = notesList
 
     var liveFirebaseUser = MutableLiveData<FirebaseUser>()
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,26 +53,6 @@ class NotesFragment : Fragment() {
         val root: View = binding.root
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
 
-/*        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }*/
-/*        val note = NoteModel()
-        note.noteTitle = arguments?.getString("noteTitle").toString()
-        note.noteDate = arguments?.getString("noteDate").toString()
-        note.noteDetail = arguments?.getString("noteDetail").toString()
-        i("Notes received")
-        i("noteTitle received: ${note.noteTitle}")
-        i("noteDate received: ${note.noteDate}")
-        i("noteDetails received: ${note.noteDetail}")
-
-        val layoutManager = LinearLayoutManager(context)
-        _binding!!.recyclerView.layoutManager = layoutManager
-        _binding!!.recyclerView.adapter = NoteAdapter(notesList)
-
-        // notes.add(note)
-
-        Toast.makeText(context, "Note added successfully", Toast.LENGTH_SHORT).show()*/
         i("gn calling observe()")
         observableNotesList.observe(viewLifecycleOwner, Observer {
                 notes ->
@@ -83,10 +60,15 @@ class NotesFragment : Fragment() {
                 render(notes as ArrayList<NoteModel>)
             }
         })
-        i("gn after observe()")
-        i("gn calling loadNotes()")
+        i("gn loading notes")
         loadNotes()
-        i("gn after loadNotes()")
+
+        communicator = activity as FragmentCommunicator
+
+/*        val completeSwitch = view?.findViewById(R.id.completeSwitch) as Switch
+        completeSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            i("gn switch changed")
+        }*/
         return root
     }
     companion object {
@@ -116,7 +98,7 @@ class NotesFragment : Fragment() {
 
     private fun render(notesList: ArrayList<NoteModel>) {
         i("gn render()")
-        binding?.recyclerView?.adapter = NoteAdapter(notesList)
+        binding?.recyclerView?.adapter = NoteAdapter(notesList, this)
         if (notesList.isEmpty()) {
             i("gn notesList is empty()")
             binding?.recyclerView?.visibility = View.GONE
@@ -130,4 +112,15 @@ class NotesFragment : Fragment() {
         super.onResume()
         loadNotes()
     }
+
+    override fun onNoteClick(note: NoteModel) {
+        i("gn editing note ${note}")
+        communicator.passDataToEditNote(note)
+
+/*        val intent = Intent(context, AddNoteFragment::class.java)
+        startActivity(intent)*/
+    }
+
+
+
 }

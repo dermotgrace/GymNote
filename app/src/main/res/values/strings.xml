@@ -9,4 +9,6 @@
     <string name="addNoteDate">Add Note Date</string>
     <string name="hint_noteText">Please enter your note details here</string>
     <string name="pick_date">Please pick the note date</string>
+    <string name="complete">Complete?</string>
+    <string name="delete">Delete</string>
 </resources>

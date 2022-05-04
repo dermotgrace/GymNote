@@ -7,7 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import ie.wit.gymnote.databinding.CardNoteBinding
 import ie.wit.gymnote.models.NoteModel
 
-class NoteAdapter constructor(private var notes: List<NoteModel>) :
+interface NoteListener {
+    fun onNoteClick(note: NoteModel)
+}
+
+class NoteAdapter constructor(private var notes: List<NoteModel>,
+                              private val listener: NoteListener ) :
     RecyclerView.Adapter<NoteAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
@@ -19,7 +24,7 @@ class NoteAdapter constructor(private var notes: List<NoteModel>) :
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val note = notes[holder.adapterPosition]
-        holder.bind(note)
+        holder.bind(note, listener)
     }
 
     override fun getItemCount(): Int = notes.size
@@ -27,9 +32,10 @@ class NoteAdapter constructor(private var notes: List<NoteModel>) :
     class MainHolder(private val binding : CardNoteBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(note: NoteModel) {
+        fun bind(note: NoteModel, listener: NoteListener) {
             binding.noteTitle.text = note.noteTitle
             binding.noteDate.text = note.noteDate
+            binding.root.setOnClickListener { listener.onNoteClick(note) }
         }
     }
 }

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp"
     android:layout_marginBottom="8dp"
     android:elevation="24dp">
 
@@ -14,10 +16,10 @@
 
         <TextView
             android:id="@+id/noteTitle"
-            android:layout_width="match_parent"
+            android:layout_width="275dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:textSize="30sp"
+            android:textSize="25dp"
             tools:text="Note Title" />
 
         <TextView
@@ -26,6 +28,28 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/noteTitle"
             tools:text="Note Date" />
+
+        <ImageView
+            android:id="@+id/completeNoteCheckIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_check_24"
+            android:layout_toEndOf="@+id/noteTitle"
+            android:minWidth="55dp"
+            android:minHeight="55dp"
+            android:clickable="true"
+            android:onClick="completeNoteCheckClick"/>
+
+        <ImageView
+            android:id="@+id/deleteNoteIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_delete_24"
+            android:layout_toEndOf="@+id/completeNoteCheckIcon"
+            android:minWidth="55dp"
+            android:minHeight="55dp"
+            android:clickable="true"
+            android:onClick="deleteNoteClick"/>
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

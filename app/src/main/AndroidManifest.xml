@@ -11,8 +11,8 @@
         android:theme="@style/Theme.App.Starting">
         <activity
             android:name=".loginLogout.SignUpActivity"
-            android:exported="false">
-
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light">
         </activity>
         <activity
             android:name=".loginLogout.FirebaseAuthManager"
@@ -26,8 +26,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.GymNote">
+            android:label="@string/app_name">
 
         </activity>
     </application>
