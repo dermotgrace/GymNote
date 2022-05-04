@@ -105,12 +105,13 @@ class MainActivity : AppCompatActivity(), FragmentCommunicator {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-
-    fun completeNoteCheckClick(e: View) {
+    // Not staying here
+    fun completeNote(e: View) {
         i("gn completeNoteCheckClick ${e.toString()}")
     }
 
-    fun deleteNoteClick(e: View) {
-        i("gn deleteNoteClick ${e.toString()}")
+    fun deleteNote(e: View) {
+        i("gn deleteNote ${e.toString()}")
     }
+
 }

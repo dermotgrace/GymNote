@@ -5,12 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Switch
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import ie.wit.gymnote.R
@@ -19,7 +23,10 @@ import ie.wit.gymnote.adapters.NoteListener
 import ie.wit.gymnote.databinding.FragmentNotesBinding
 import ie.wit.gymnote.firebaseDB.FirebaseDBManager
 import ie.wit.gymnote.fragmentCommunication.FragmentCommunicator
+import ie.wit.gymnote.loginLogout.LoggedInViewModel
 import ie.wit.gymnote.models.NoteModel
+import ie.wit.gymnote.swipeCallbacks.SwipeToDeleteCallback
+import ie.wit.gymnote.ui.addNote.AddNoteViewModel
 import timber.log.Timber
 import timber.log.Timber.i
 
@@ -30,7 +37,8 @@ class NotesFragment : Fragment(), NoteListener {
     private val binding get() = _binding!!
     private val notesList =
         MutableLiveData<List<NoteModel>>()
-
+    private lateinit var noteViewModel: AddNoteViewModel
+    private val loggedInViewModel : LoggedInViewModel by activityViewModels()
     val observableNotesList: LiveData<List<NoteModel>>
         get() = notesList
 
@@ -69,6 +77,9 @@ class NotesFragment : Fragment(), NoteListener {
         completeSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
             i("gn switch changed")
         }*/
+
+        noteViewModel = ViewModelProvider(this).get(AddNoteViewModel::class.java)
+
         return root
     }
     companion object {
@@ -99,6 +110,22 @@ class NotesFragment : Fragment(), NoteListener {
     private fun render(notesList: ArrayList<NoteModel>) {
         i("gn render()")
         binding?.recyclerView?.adapter = NoteAdapter(notesList, this)
+
+        binding?.recyclerView?.apply {
+                val swipeDelete = object : SwipeToDeleteCallback() {
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    i("gn onSwiped()")
+                    when(direction) {
+                        ItemTouchHelper.LEFT -> {
+                            i("gn swipe left")
+                        }
+                        ItemTouchHelper.RIGHT -> {
+                            i("gn swipe left")
+                        }
+                    }
+                }
+            }
+        }
         if (notesList.isEmpty()) {
             i("gn notesList is empty()")
             binding?.recyclerView?.visibility = View.GONE
@@ -121,6 +148,28 @@ class NotesFragment : Fragment(), NoteListener {
         startActivity(intent)*/
     }
 
+    override fun onNoteCompleteClick(note: NoteModel) {
+        i("gn listener::onNoteCompleteClick ${note}")
+        note.noteComplete = true
+        noteViewModel.updateNote(
+            loggedInViewModel.liveFirebaseUser,
+            note
+        )
 
+        Toast.makeText(context, "Note Completed", Toast.LENGTH_SHORT).show()
+        loadNotes()
+    }
+
+    override fun onNoteDeleteClick(note: NoteModel) {
+        i("gn listener::onNoteDeleteClick ${note}")
+
+        noteViewModel.deleteNote(
+            loggedInViewModel.liveFirebaseUser,
+            note
+        )
+
+        Toast.makeText(context, "Note deleted", Toast.LENGTH_SHORT).show()
+        loadNotes()
+    }
 
 }

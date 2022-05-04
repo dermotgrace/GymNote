@@ -38,7 +38,7 @@
             android:minWidth="55dp"
             android:minHeight="55dp"
             android:clickable="true"
-            android:onClick="completeNoteCheckClick"/>
+            android:onClick="completeNote"/>
 
         <ImageView
             android:id="@+id/deleteNoteIcon"
@@ -49,7 +49,7 @@
             android:minWidth="55dp"
             android:minHeight="55dp"
             android:clickable="true"
-            android:onClick="deleteNoteClick"/>
+            android:onClick="deleteNote"/>
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
