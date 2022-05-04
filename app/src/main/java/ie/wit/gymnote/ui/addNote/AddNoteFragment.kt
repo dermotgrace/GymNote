@@ -27,6 +27,7 @@ import org.w3c.dom.Text
 import timber.log.Timber.i
 import java.util.*
 
+
 class AddNoteFragment : Fragment() {
     private lateinit var communicator : FragmentCommunicator
     private var _binding: FragmentAddnoteBinding? = null
@@ -61,13 +62,6 @@ class AddNoteFragment : Fragment() {
         noteViewModel.observableStatus.observe(viewLifecycleOwner, Observer {
                 status -> status?.let { render(status) }
         })
-        editing = arguments?.getString("editing").toString()
-        val addEditButton : TextView? = view?.findViewById(R.id.btnAdd)
-        i("gn editing ${editing}")
-        if(editing == "true") {
-            addEditButton?.text = "Update Note"
-        }
-
         return root
     }
 
@@ -106,37 +100,87 @@ class AddNoteFragment : Fragment() {
             updateLabel(calendar)
         }
 
+        editing = arguments?.getString("editing").toString()
+
         btnDatePicker.setOnClickListener {
-                // TODO send existing date to note
-                DatePickerDialog(
-                    view.context,
-                    datePicker,
-                    calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH)
-                ).show()
+            var year = calendar.get(Calendar.YEAR)
+            var month = calendar.get(Calendar.MONTH)
+            var day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            if (editing == "true") {
+                val noteDateStr = arguments?.getString("noteDate").toString()
+                val delimiter = "-"
+                val splat = noteDateStr.split(delimiter)
+                i("gn splat ${splat}")
+                year = splat.get(2).toInt()
+                month = splat.get(1).toInt() - 1
+                day = splat.get(0).toInt()
+            }
+
+            DatePickerDialog(
+                view.context,
+                datePicker,
+                year,
+                month,
+                day
+            ).show()
+        }
+
+        if(editing == "true") {
+            val addEditButton : TextView? = view?.findViewById(R.id.btnAdd)
+            val dateButton : TextView? = view?.findViewById(R.id.btnDatePicker)
+            val noteTitle : TextView? = view?.findViewById(R.id.noteTitle)
+            val noteDate : TextView? = view?.findViewById(R.id.noteDate)
+            val noteDetails : TextView? = view?.findViewById(R.id.noteDetails)
+            addEditButton?.text = "Update Note"
+            dateButton?.text = "Change Date"
+            i("gn editing ${editing}")
+            noteTitle?.text = arguments?.getString("noteTitle").toString()
+            noteDate?.text = arguments?.getString("noteDate").toString()
+            noteDetails?.text = arguments?.getString("noteDetail").toString()
+            note.uid = arguments?.getString("uid").toString()
 
         }
 
         btnAdd.setOnClickListener() {
-            Timber.i("add Button Pressed1")
+            Timber.i("gn add Button Pressed1")
             note.noteTitle = _binding?.noteTitle?.text.toString()
             note.noteDate = _binding?.noteDate?.text.toString()
             note.noteDetail = _binding?.noteDetails?.text.toString()
 
             if (note.noteTitle!!.isNotEmpty() && note.noteDate!!.isNotEmpty() && note.noteDetail!!.isNotEmpty()) {
-                Timber.i("add Button Pressed2: ${note}")
                 // communicator.passData(note.noteTitle!!, note.noteDate!!, note.noteDetail!!)
-                noteViewModel.addNote(
-                    loggedInViewModel.liveFirebaseUser,
-                    NoteModel(noteTitle = note.noteTitle,
-                        noteDate = note.noteDate,
-                        noteDetail = note.noteDetail))
+                if (editing != "true") {
+                    i("gn adding note: ${note}")
+                    noteViewModel.addNote(
+                        loggedInViewModel.liveFirebaseUser,
+                        NoteModel(
+                            noteTitle = note.noteTitle,
+                            noteDate = note.noteDate,
+                            noteDetail = note.noteDetail
+                        )
+                    )
+                    Toast.makeText(context, "Note Created", Toast.LENGTH_SHORT).show()
+                } else {
+                    i("gn updating note: ${note}")
+
+                    noteViewModel.updateNote(
+                        loggedInViewModel.liveFirebaseUser,
+                        NoteModel(
+                            uid = note.uid,
+                            noteTitle = note.noteTitle,
+                            noteDate = note.noteDate,
+                            noteDetail = note.noteDetail
+                        )
+                    )
+
+                    Toast.makeText(context, "Note Updated", Toast.LENGTH_SHORT).show()
+                }
 
                 // Navigate back to notes list
                 view.findNavController().navigate(R.id.navigation_notes)
-
             }
+
             else {
                 Snackbar.make(it,"Please ensure all fields are completed", Snackbar.LENGTH_LONG)
                     .show()

@@ -7,6 +7,7 @@ import com.google.firebase.auth.FirebaseUser
 import ie.wit.gymnote.firebaseDB.FirebaseDBManager
 import ie.wit.gymnote.models.NoteModel
 import timber.log.Timber
+import timber.log.Timber.i
 
 class AddNoteViewModel : ViewModel() {
 
@@ -23,10 +24,24 @@ class AddNoteViewModel : ViewModel() {
     ) {
         status.value = try {
             //DonationManager.create(donation)
-            Timber.i("gn AddNoteViewModel::addNote")
+            i("gn AddNoteViewModel::addNote")
             FirebaseDBManager.create(firebaseUser,note)
             true
         } catch (e: IllegalArgumentException) {
+            false
+        }
+    }
+
+    fun updateNote(firebaseUser: MutableLiveData<FirebaseUser>,
+                note: NoteModel
+    ) {
+        status.value = try {
+            //DonationManager.create(donation)
+            i("gn AddNoteViewModel::updateNote")
+            FirebaseDBManager.update(firebaseUser,note)
+            true
+        } catch (e: IllegalArgumentException) {
+            i("gn ${e.toString()}")
             false
         }
     }

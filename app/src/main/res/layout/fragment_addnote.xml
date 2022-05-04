@@ -87,7 +87,7 @@
                     android:hint="@string/hint_noteText"
                     android:inputType="textMultiLine"
                     android:lines="5"
-                    android:maxLength="25"
+                    android:maxLength="250"
                     android:maxLines="10"
                     android:padding="8dp"
                     android:textColor="@color/colorPrimaryDark"
