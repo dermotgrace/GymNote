@@ -11,4 +11,5 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#4c90af</color>
     <color name="colorFitnessGreen">#25cf5d</color>
+    <color name="colorFitnessGrey">#B1A8A7</color>
 </resources>

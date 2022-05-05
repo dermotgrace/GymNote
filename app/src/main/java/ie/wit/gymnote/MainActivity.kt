@@ -100,6 +100,7 @@ class MainActivity : AppCompatActivity(), FragmentCommunicator {
         navController.navigate(R.id.navigation_addnote)
         // Passes data to notesFragment
         transaction.replace(R.id.container, noteFragment).commit()
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

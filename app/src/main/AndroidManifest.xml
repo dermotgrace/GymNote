@@ -12,7 +12,7 @@
         <activity
             android:name=".loginLogout.SignUpActivity"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light">
+            android:theme="@style/Theme.GymNote">
         </activity>
         <activity
             android:name=".loginLogout.FirebaseAuthManager"
