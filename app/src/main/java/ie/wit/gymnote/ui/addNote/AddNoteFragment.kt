@@ -6,9 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -37,7 +35,7 @@ class AddNoteFragment : Fragment() {
     private lateinit var noteViewModel: AddNoteViewModel
     private val loggedInViewModel : LoggedInViewModel by activityViewModels()
     private var editing = "false"
-
+    private lateinit var exerciseTypeSelect: AutoCompleteTextView
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -62,6 +60,10 @@ class AddNoteFragment : Fragment() {
         noteViewModel.observableStatus.observe(viewLifecycleOwner, Observer {
                 status -> status?.let { render(status) }
         })
+
+        val exerciseTypes = arrayOf("Weightlifting","Gymnastics","Conditioning","Other")
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.list_item, exerciseTypes)
+        _binding!!.autoCompleteText.setAdapter(arrayAdapter)
         return root
     }
 
@@ -90,6 +92,7 @@ class AddNoteFragment : Fragment() {
         noteDatePicker = view.findViewById(R.id.noteDate)
         btnDatePicker = view.findViewById(R.id.btnDatePicker)
         btnAdd = view.findViewById(R.id.btnAdd)
+        exerciseTypeSelect = view.findViewById(R.id.autoCompleteText)
         communicator = activity as FragmentCommunicator
 
         val calendar = Calendar.getInstance()
@@ -101,6 +104,7 @@ class AddNoteFragment : Fragment() {
         }
 
         editing = arguments?.getString("editing").toString()
+
 
         btnDatePicker.setOnClickListener {
             var year = calendar.get(Calendar.YEAR)
@@ -132,12 +136,15 @@ class AddNoteFragment : Fragment() {
             val noteTitle : TextView? = view?.findViewById(R.id.noteTitle)
             val noteDate : TextView? = view?.findViewById(R.id.noteDate)
             val noteDetails : TextView? = view?.findViewById(R.id.noteDetails)
+            val exerciseType : AutoCompleteTextView? = view?.findViewById(R.id.autoCompleteText)
             addEditButton?.text = "Update Note"
             dateButton?.text = "Change Date"
             i("gn editing ${editing}")
             noteTitle?.text = arguments?.getString("noteTitle").toString()
             noteDate?.text = arguments?.getString("noteDate").toString()
             noteDetails?.text = arguments?.getString("noteDetail").toString()
+            exerciseType?.setText(arguments?.getString("exerciseType").toString())
+
             note.uid = arguments?.getString("uid").toString()
 
         }
@@ -147,6 +154,7 @@ class AddNoteFragment : Fragment() {
             note.noteTitle = _binding?.noteTitle?.text.toString()
             note.noteDate = _binding?.noteDate?.text.toString()
             note.noteDetail = _binding?.noteDetails?.text.toString()
+            note.exerciseType = _binding?.autoCompleteText?.text.toString()
 
             if (note.noteTitle!!.isNotEmpty() && note.noteDate!!.isNotEmpty() && note.noteDetail!!.isNotEmpty()) {
                 // communicator.passData(note.noteTitle!!, note.noteDate!!, note.noteDetail!!)
@@ -157,7 +165,8 @@ class AddNoteFragment : Fragment() {
                         NoteModel(
                             noteTitle = note.noteTitle,
                             noteDate = note.noteDate,
-                            noteDetail = note.noteDetail
+                            noteDetail = note.noteDetail,
+                            exerciseType = note.exerciseType
                         )
                     )
                     Toast.makeText(context, "Note Created", Toast.LENGTH_SHORT).show()
@@ -170,7 +179,8 @@ class AddNoteFragment : Fragment() {
                             uid = note.uid,
                             noteTitle = note.noteTitle,
                             noteDate = note.noteDate,
-                            noteDetail = note.noteDetail
+                            noteDetail = note.noteDetail,
+                            exerciseType = note.exerciseType
                         )
                     )
 

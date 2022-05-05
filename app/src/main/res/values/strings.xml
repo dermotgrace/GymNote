@@ -14,4 +14,6 @@
     <string name="content_description_password">User Password</string>
     <string name="content_description_user">User Email</string>
     <string name="showCompleteOnly">Show Complete Notes</string>
+    <string name="typeSelect">Select Exercise Type</string>
+
 </resources>
