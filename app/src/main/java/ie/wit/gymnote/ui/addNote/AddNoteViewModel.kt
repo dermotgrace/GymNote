@@ -45,4 +45,18 @@ class AddNoteViewModel : ViewModel() {
             false
         }
     }
+
+    fun deleteNote(firebaseUser: MutableLiveData<FirebaseUser>,
+                   note: NoteModel
+    ) {
+        status.value = try {
+            //DonationManager.create(donation)
+            i("gn AddNoteViewModel::updateNote")
+            FirebaseDBManager.delete(firebaseUser,note)
+            true
+        } catch (e: IllegalArgumentException) {
+            i("gn ${e.toString()}")
+            false
+        }
+    }
 }
