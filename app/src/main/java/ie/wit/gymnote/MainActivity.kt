@@ -90,6 +90,7 @@ class MainActivity : AppCompatActivity(), FragmentCommunicator {
         bundle.putString("noteTitle", note?.noteTitle);
         bundle.putString("noteDate", note?.noteDate);
         bundle.putString("noteDetail", note?.noteDetail);
+        bundle.putString("exerciseType", note?.exerciseType);
         bundle.putString("editing", "true");
         bundle.putString("uid", note?.uid);
         val transaction = this.supportFragmentManager.beginTransaction()

@@ -29,6 +29,14 @@
             android:layout_below="@id/noteTitle"
             tools:text="Note Date" />
 
+        <TextView
+            android:id="@+id/exerciseType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/noteDate"
+            android:textSize="20dp"
+            tools:text="ExerciseType" />
+
         <ImageView
             android:id="@+id/completeNoteCheckIcon"
             android:layout_width="wrap_content"
