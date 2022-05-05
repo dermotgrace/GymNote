@@ -11,4 +11,7 @@
     <string name="pick_date">Please pick the note date</string>
     <string name="complete">Complete?</string>
     <string name="delete">Delete</string>
+    <string name="content_description_password">User Password</string>
+    <string name="content_description_user">User Email</string>
+    <string name="showCompleteOnly">Show Complete Notes</string>
 </resources>

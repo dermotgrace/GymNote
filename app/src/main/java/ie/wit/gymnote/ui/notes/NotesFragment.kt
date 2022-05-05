@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Switch
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -39,6 +40,7 @@ class NotesFragment : Fragment(), NoteListener {
         MutableLiveData<List<NoteModel>>()
     private lateinit var noteViewModel: AddNoteViewModel
     private val loggedInViewModel : LoggedInViewModel by activityViewModels()
+
     val observableNotesList: LiveData<List<NoteModel>>
         get() = notesList
 
@@ -172,4 +174,7 @@ class NotesFragment : Fragment(), NoteListener {
         loadNotes()
     }
 
+    override fun completeSwitchClick() {
+        i("gn completeSwitch")
+    }
 }

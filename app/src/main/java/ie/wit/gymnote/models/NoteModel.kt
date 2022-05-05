@@ -12,6 +12,7 @@ data class NoteModel(
     var noteTitle: String? = "",
     var noteDate: String? = "",
     var noteDetail: String? = "",
+    var noteType: String? = "",
     var noteComplete: Boolean? = false)
     : Parcelable
 {
@@ -22,6 +23,7 @@ data class NoteModel(
             "noteTitle" to noteTitle,
             "noteDate" to noteDate,
             "noteDetail" to noteDetail,
+            "noteType" to noteType,
             "noteComplete" to noteComplete
         )
     }

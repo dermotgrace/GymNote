@@ -11,7 +11,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints">
             <Switch
                 android:id="@+id/completeSwitch"
                 android:layout_width="wrap_content"
@@ -19,10 +20,11 @@
                 android:switchMinWidth="56dp"
                 android:layout_marginLeft="180dp"
                 android:layout_marginTop="10dp"
-                android:text="Show Incomplete Only:"
+                android:text="@string/showCompleteOnly"
                 android:checked="true"
                 android:textOff="OFF"
-                android:textOn="ON"/>
+                android:textOn="ON"
+                android:onClick="completeSwitchClick"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
