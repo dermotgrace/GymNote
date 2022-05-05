@@ -17,5 +17,6 @@
     <string name="showCompleteOnly">Show Complete Notes</string>
     <string name="typeSelect">Select Exercise Type</string>
     <string name="notRegisteredSignUpHere">Not registered, sign up here</string>
+    <string name="registerNow">Register Now</string>
 
 </resources>
