@@ -1,14 +1,19 @@
 package ie.wit.gymnote.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import ie.wit.gymnote.databinding.CardNoteBinding
 import ie.wit.gymnote.models.NoteModel
+import timber.log.Timber.i
 
 interface NoteListener {
     fun onNoteClick(note: NoteModel)
+    fun onNoteCompleteClick(note: NoteModel)
+    fun onNoteDeleteClick(note: NoteModel)
+
 }
 
 class NoteAdapter constructor(private var notes: List<NoteModel>,
@@ -36,6 +41,10 @@ class NoteAdapter constructor(private var notes: List<NoteModel>,
             binding.noteTitle.text = note.noteTitle
             binding.noteDate.text = note.noteDate
             binding.root.setOnClickListener { listener.onNoteClick(note) }
+            binding.completeNoteCheckIcon.setOnClickListener { listener.onNoteCompleteClick(note) }
+            binding.deleteNoteIcon.setOnClickListener { listener.onNoteDeleteClick(note) }
         }
     }
+
+
 }
