@@ -9,7 +9,14 @@
         android:id="@+id/navigation_notes"
         android:name="ie.wit.gymnote.ui.notes.NotesFragment"
         android:label="@string/title_notes"
-        tools:layout="@layout/fragment_notes" />
+        tools:layout="@layout/fragment_notes" >
+        <action
+            android:id="@+id/action_navigation_notes_to_navigation_addnote"
+            app:destination="@id/navigation_addnote" />
+        <action
+            android:id="@+id/action_navigation_notes_to_navigation_logout"
+            app:destination="@id/navigation_logout" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_addnote"
@@ -19,6 +26,9 @@
         <action
             android:id="@+id/action_navigation_addnote_to_navigation_notes"
             app:destination="@id/navigation_notes" />
+        <action
+            android:id="@+id/action_navigation_addnote_to_navigation_logout"
+            app:destination="@id/navigation_logout" />
     </fragment>
 
     <fragment

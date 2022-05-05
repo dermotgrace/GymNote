@@ -1,14 +1,15 @@
 package ie.wit.gymnote.ui.addNote
 
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
@@ -17,12 +18,9 @@ import ie.wit.gymnote.databinding.FragmentAddnoteBinding
 import ie.wit.gymnote.fragmentCommunication.FragmentCommunicator
 import ie.wit.gymnote.loginLogout.LoggedInViewModel
 import ie.wit.gymnote.models.NoteModel
-import ie.wit.gymnote.ui.notes.NotesFragment
 import timber.log.Timber
-import java.text.SimpleDateFormat
-import androidx.lifecycle.Observer
-import org.w3c.dom.Text
 import timber.log.Timber.i
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -104,7 +102,6 @@ class AddNoteFragment : Fragment() {
         }
 
         editing = arguments?.getString("editing").toString()
-
 
         btnDatePicker.setOnClickListener {
             var year = calendar.get(Calendar.YEAR)
@@ -188,7 +185,12 @@ class AddNoteFragment : Fragment() {
                 }
 
                 // Navigate back to notes list
-                view.findNavController().navigate(R.id.navigation_notes)
+                try {
+                    i("gn navigating to notes fragment")
+                    view.findNavController().navigate(R.id.navigation_notes)
+                } catch (ex: Throwable) {
+                    Toast.makeText(context, "Error when updating note",Toast.LENGTH_SHORT)
+                }
             }
 
             else {

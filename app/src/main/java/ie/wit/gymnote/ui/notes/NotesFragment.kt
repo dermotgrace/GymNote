@@ -39,7 +39,6 @@ class NotesFragment : Fragment(), NoteListener {
         MutableLiveData<List<NoteModel>>()
     private lateinit var noteViewModel: AddNoteViewModel
     private val loggedInViewModel : LoggedInViewModel by activityViewModels()
-
     val observableNotesList: LiveData<List<NoteModel>>
         get() = notesList
 
@@ -138,6 +137,7 @@ class NotesFragment : Fragment(), NoteListener {
 
     override fun onResume() {
         super.onResume()
+        i("gn onResume")
         loadNotes()
     }
 

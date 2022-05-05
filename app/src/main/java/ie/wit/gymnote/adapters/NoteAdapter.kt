@@ -46,7 +46,5 @@ class NoteAdapter constructor(private var notes: List<NoteModel>,
         }
     }
 
-    fun completeSwitchClick() {
-        i("gn completeSwitch")
-    }
+
 }

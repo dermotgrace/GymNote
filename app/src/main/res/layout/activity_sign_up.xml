@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/rings"
     tools:context=".loginLogout.SignUpActivity">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -13,7 +14,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="300dp"
-        android:layout_marginHorizontal="16dp">
+        android:layout_marginHorizontal="16dp"
+        app:endIconMode="clear_text"
+        app:startIconDrawable="@drawable/ic_baseline_person_24"
+        app:startIconContentDescription="@string/content_description_user"
+        android:background="@drawable/rounded_edittext">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email"
@@ -30,8 +35,12 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="400dp"
-        android:layout_marginHorizontal="16dp">
+        android:layout_marginTop="375dp"
+        android:layout_marginHorizontal="16dp"
+        app:endIconMode="clear_text"
+        app:startIconDrawable="@drawable/ic_baseline_security_24"
+        app:startIconContentDescription="@string/content_description_user"
+        android:background="@drawable/rounded_edittext">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password"
@@ -48,8 +57,12 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="470dp"
-        android:layout_marginHorizontal="16dp">
+        android:layout_marginTop="450dp"
+        android:layout_marginHorizontal="16dp"
+        app:endIconMode="clear_text"
+        app:startIconDrawable="@drawable/ic_baseline_security_24"
+        app:startIconContentDescription="@string/content_description_user"
+        android:background="@drawable/rounded_edittext">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/confirmPassword"
@@ -60,19 +73,20 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/signUpButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorFitnessGreen"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:text="Sign Up"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Sign In"
+        android:layout_marginTop="525dp"
+        android:layout_marginHorizontal="16dp"
         app:flow_horizontalBias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintTop_toBottomOf="@id/confirmPasswordLayout"/>
 
     <TextView
@@ -80,7 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Already registered, sign in"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
