@@ -104,14 +104,4 @@ class MainActivity : AppCompatActivity(), FragmentCommunicator {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
     }
-
-    // Not staying here
-    fun completeNote(e: View) {
-        i("gn completeNoteCheckClick ${e.toString()}")
-    }
-
-    fun deleteNote(e: View) {
-        i("gn deleteNote ${e.toString()}")
-    }
-
 }

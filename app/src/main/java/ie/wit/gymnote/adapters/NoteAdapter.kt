@@ -13,7 +13,7 @@ interface NoteListener {
     fun onNoteClick(note: NoteModel)
     fun onNoteCompleteClick(note: NoteModel)
     fun onNoteDeleteClick(note: NoteModel)
-
+    fun completeSwitchClick()
 }
 
 class NoteAdapter constructor(private var notes: List<NoteModel>,
@@ -46,5 +46,7 @@ class NoteAdapter constructor(private var notes: List<NoteModel>,
         }
     }
 
-
+    fun completeSwitchClick() {
+        i("gn completeSwitch")
+    }
 }
